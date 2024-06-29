@@ -26,12 +26,12 @@ for cmd in "${commands[@]}"; do
     for model in "${models[@]}"; do
         # Create a temporary job script 
         unique_id=$(date +%s%N | sha256sum | base64 | head -c 5)
-        job_script=$(mktemp /fsx-storygen/beidic/yang/submitwithcron5/submitted/job-$unique_id-XXXXXX.sh)
+        job_script=$(mktemp /fsx-storygen/beidic/yang/submitwithcron6/submitted/job-$unique_id-XXXXXX.sh)
 
         fullcmd="$cmd --model $model"
         
         # Fill in the placeholder in the template with the actual command
-        sed "s|COMMAND_PLACEHOLDER|$fullcmd|g" /fsx-storygen/beidic/yang/submitwithcron5/code_generation_template.sh > "$job_script"
+        sed "s|COMMAND_PLACEHOLDER|$fullcmd|g" /fsx-storygen/beidic/yang/submitwithcron6/code_generation_template.sh > "$job_script"
         
         # Submit the job
         /opt/slurm/bin/sbatch "$job_script"
